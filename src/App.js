@@ -1,24 +1,36 @@
-import logo from "./logo.svg";
-import "./App.css";
 import "tailwindcss/tailwind.css";
+import React, { useState, useEffect } from "react";
+import useWebSocket, { ReadyState } from "react-use-websocket";
+import axios from "axios";
+import qs from "qs";
 
 function App() {
+  useEffect(() => {
+    let data = qs.stringify({
+      email: "kiomgps@gmail.com",
+      password: "123456",
+    });
+    let config = {
+      method: "post",
+      url: "http://dadhwal.in:8082/api/session",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p>Hello</p>
     </div>
   );
 }
